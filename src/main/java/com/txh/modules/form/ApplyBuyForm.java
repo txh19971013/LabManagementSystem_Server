@@ -21,7 +21,6 @@ public class ApplyBuyForm {
      * 商品名称
      */
     @ApiModelProperty(value = "商品名称")
-    @NotNull(message = "商品名称不能为空")
     @NotBlank(message = "商品名称不能为空")
     private String productName;
 
@@ -29,7 +28,6 @@ public class ApplyBuyForm {
      * 商品编号
      */
     @ApiModelProperty(value = "商品编号")
-    @NotNull(message = "商品编号不能为空")
     @NotBlank(message = "商品编号不能为空")
     private String productNum;
 
@@ -37,7 +35,6 @@ public class ApplyBuyForm {
      * 器材名称
      */
     @ApiModelProperty(value = "申请购买的耗材名称")
-    @NotNull(message = "耗材名称不能为空")
     @NotBlank(message = "耗材名称不能为空")
     private String name;
 
@@ -45,7 +42,6 @@ public class ApplyBuyForm {
      * 器材型号
      */
     @ApiModelProperty(value = "器材型号")
-    @NotNull(message = "器材型号不能为空")
     @NotBlank(message = "器材型号不能为空")
     private String type;
 
@@ -67,7 +63,6 @@ public class ApplyBuyForm {
      * 器材详情
      */
     @ApiModelProperty(value = "器材详情")
-    @NotNull(message = "器材详情不能为空")
     @NotBlank(message = "器材详情不能为空")
     private String detail;
 

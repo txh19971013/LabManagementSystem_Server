@@ -39,14 +39,12 @@ public class CourseScheduleForm implements Serializable {
      * 教室名称
      */
     @ApiModelProperty(value = "教室名称")
-    @NotNull(message = "教室名称不能为空")
     @NotBlank(message = "教室名称不能为空")
     private String classroomName;
     /**
      * 课程名称
      */
     @ApiModelProperty(value = "课程名称")
-    @NotNull(message = "课程名称不能为空")
     @NotBlank(message = "课程名称不能为空")
     private String courseName;
 }

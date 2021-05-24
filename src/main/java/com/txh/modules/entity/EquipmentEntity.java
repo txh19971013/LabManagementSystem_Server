@@ -7,9 +7,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by Jasun on 2021/5/7 22:36.
- */
 @Data
 @TableName("tb_equipment")
 public class EquipmentEntity implements Serializable {
