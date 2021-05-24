@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.txh.modules.dao.EquipmentDao">
+    <select id="getApplyById" resultType="com.txh.modules.entity.ApplyBuyEquipmentEntity">
+        select b.*
+        from tb_equipment_buy b
+        where b.teacher_id = #{teacher_id}
+	</select>
+    <!--让查询结果递增显示，方便安卓端未审核的记录显示在前面-->
+    <select id="getAllApply" resultType="com.txh.modules.dto.AllApplyBuyEquipmentDto">
+        select b.*, u.realname
+        from tb_equipment_buy b left join tb_user u
+        on b.teacher_id = u.user_id and u.user_type = 1
+        order by b.buy_status ASC
+	</select>
+    <!--#{buyStatus}和#{id}必须和SetApplyStatusForm中的字段对应上，不然就会报找不到字段的错-->
+    <update id="setApplyStatus" parameterType="com.txh.modules.form.SetApplyStatusForm">
+        update tb_equipment_buy b set buy_status = #{buyStatus} where id = #{id}
+    </update>
+    <!--下面的DUAl是一个临时表，这里实现了，某一耗材申请已经通过时，同一教师不会多次添加这一耗材的申请-->
+    <insert id="applyBuy" parameterType="com.txh.modules.form.ApplyBuyForm">
+        insert into tb_equipment_buy (teacher_id, product_name, product_num, `name`, `type`, `count`, price, detail, total_money)
+        select #{teacherId}, #{productName}, #{productNum}, #{name}, #{type}, #{count}, #{price}, #{detail}, #{totalMoney}
+        from DUAl
+        where not exists (
+            select b.*
+            from tb_equipment_buy b
+            where b.teacher_id = #{teacherId} and b.product_num = #{productNum} and (b.buy_status = 0 or b.buy_status = 2)
+        )
+    </insert>
+    <!--下面的DUAl是一个临时表，这里实现了，避免插入重复器材-->
+    <insert id="addEquipment" parameterType="com.txh.modules.entity.EquipmentEntity">
+        insert into tb_equipment (`name`)
+        select #{name}
+        from DUAl
+        where not exists (
+            select e.*
+            from tb_equipment e
+            where e.`name` = #{name}
+        )
+    </insert>
+    <select id="queryEquipmentNameById" resultType="String">
+        select b.`name`
+        from tb_equipment_buy b
+        where b.id = #{id}
+    </select>
+    <select id="getAllEquipment" resultType="com.txh.modules.entity.EquipmentEntity">
+        select e.*
+        from tb_equipment e
+        order by e.id ASC
+    </select>
+</mapper>

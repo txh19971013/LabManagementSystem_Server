@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.txh.modules.dao.CourseScheduleDao">
+    <select id="getAllCourse" resultType="com.txh.modules.dto.CourseScheduleDto">
+        select c.*, u.username,u.realname
+        from tb_course_schedule c left join tb_user u
+        on c.teacher_id = u.user_id and u.user_type = 1
+        where c.week_num = #{week_num} and classroom_name = #{classroom_name}
+	</select>
+    <!--下面的DUAl是一个临时表，这里实现了不会在同一时间的同一个实验室插入课程-->
+    <insert id="addCourse" parameterType="com.txh.modules.form.AddCourseForm">
+        insert into tb_course_schedule (classroom_name, week_num, `week`, day_times, teacher_id, course_name)
+        select #{classroomName}, #{weekNum}, #{week}, #{dayTimes}, #{teacherId}, #{courseName}
+        from DUAl
+        where not exists (
+            select c.*
+            from tb_course_schedule c
+            where c.classroom_name = #{classroomName} and c.week_num = #{weekNum} and c.`week` = #{week} and c.day_times = #{dayTimes}
+        )
+    </insert>
+</mapper>
