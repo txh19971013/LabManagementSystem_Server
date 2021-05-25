@@ -45,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
         //密码错误
         if (!user.getPassword().equals(DigestUtils.sha256Hex(form.getPassword()))) {//DigestUtils.sha256Hex进行MD5加密
-            throw new RRException("手机号或密码错误");
+            throw new RRException("用户名或密码错误");
         }
 
         UserDto userDto = new UserDto();

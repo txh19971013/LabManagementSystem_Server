@@ -33,6 +33,6 @@ public class UserController {
     @PostMapping("login")
     @ApiOperation("用户登录")
     public R login(@RequestBody @Valid LoginForm loginForm) {
-        return R.ok().put("user", userService.login(loginForm));
+        return R.ok("登录成功").put("user", userService.login(loginForm));
     }
 }
