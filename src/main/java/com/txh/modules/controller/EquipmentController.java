@@ -22,13 +22,13 @@ public class EquipmentController {
     @GetMapping("getApplyById")
     @ApiOperation("教师通过id获取自己的耗材申请记录列表")
     public R getApplyById(@RequestParam(required = false, defaultValue = "1") Long teacherId) {
-        return R.ok("成功获取申购历史").put("theTeacherApply", equipmentService.getApplyById(teacherId));
+        return R.ok("成功获取申购历史").put("apply", equipmentService.getApplyById(teacherId));
     }
 
     @GetMapping("getAllApply")
     @ApiOperation("管理员获取所有老师的耗材申请信息列表")
     public R getAllApply() {
-        return R.ok("成功获取申购列表").put("allApply", equipmentService.getAllApply());
+        return R.ok("成功获取申购列表").put("apply", equipmentService.getAllApply());
     }
 
     @PostMapping("setApplyStatus")
