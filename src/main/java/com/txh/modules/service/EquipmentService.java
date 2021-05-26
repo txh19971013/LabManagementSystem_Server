@@ -5,7 +5,9 @@ import com.txh.modules.dto.AllApplyBuyEquipmentDto;
 import com.txh.modules.entity.ApplyBuyEquipmentEntity;
 import com.txh.modules.entity.EquipmentEntity;
 import com.txh.modules.form.ApplyBuyForm;
+import com.txh.modules.form.NameTypeCount;
 import com.txh.modules.form.SetApplyStatusForm;
+import com.txh.modules.form.UpdateEquipmentCount;
 
 import java.util.List;
 
@@ -21,7 +23,11 @@ public interface EquipmentService {
 
     public Integer addEquipment(EquipmentEntity equipmentEntity);
 
-    public String queryEquipmentNameById(Long id);
+    public Integer getCountByNameAndType(String name, String type);
+
+    public Integer updateCount(UpdateEquipmentCount updateEquipmentCount);
+
+    public NameTypeCount getNameTypeCountById(Long id);
 
     public List<EquipmentEntity> getAllEquipment();
 

@@ -6,7 +6,9 @@ import com.txh.modules.dto.AllApplyBuyEquipmentDto;
 import com.txh.modules.entity.ApplyBuyEquipmentEntity;
 import com.txh.modules.entity.EquipmentEntity;
 import com.txh.modules.form.ApplyBuyForm;
+import com.txh.modules.form.NameTypeCount;
 import com.txh.modules.form.SetApplyStatusForm;
+import com.txh.modules.form.UpdateEquipmentCount;
 import com.txh.modules.service.EquipmentService;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +42,18 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentDao, EquipmentEnt
     }
 
     @Override
-    public String queryEquipmentNameById(Long id) {
-        return baseMapper.queryEquipmentNameById(id);
+    public Integer getCountByNameAndType(String name, String type) {
+        return baseMapper.getCountByNameAndType(name, type);
+    }
+
+    @Override
+    public Integer updateCount(UpdateEquipmentCount updateEquipmentCount) {
+        return baseMapper.updateCount(updateEquipmentCount);
+    }
+
+    @Override
+    public NameTypeCount getNameTypeCountById(Long id) {
+        return baseMapper.getNameTypeCountById(id);
     }
 
     @Override

@@ -5,7 +5,9 @@ import com.txh.modules.dto.AllApplyBuyEquipmentDto;
 import com.txh.modules.entity.ApplyBuyEquipmentEntity;
 import com.txh.modules.entity.EquipmentEntity;
 import com.txh.modules.form.ApplyBuyForm;
+import com.txh.modules.form.NameTypeCount;
 import com.txh.modules.form.SetApplyStatusForm;
+import com.txh.modules.form.UpdateEquipmentCount;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,8 +24,12 @@ public interface EquipmentDao extends BaseMapper<EquipmentEntity> {
     public Integer applyBuy(ApplyBuyForm applyBuyForm);
     //管理员审核通过的同时直接将该耗材新增入设备表
     public Integer addEquipment(EquipmentEntity equipmentEntity);
+    //通过器材名称和型号查找它的数量
+    public Integer getCountByNameAndType(String name, String type);
+    //同名同型号的器材追加数量
+    public Integer updateCount(UpdateEquipmentCount updateEquipmentCount);
     //通过耗材申请记录的id查询到耗材名，查询到的耗材名再用来在管理员审核通过时，向器材表新增器材，减少了安卓端需要传递回来的字段量
-    public String queryEquipmentNameById(Long id);
+    public NameTypeCount getNameTypeCountById(Long id);
     //管理员查看全部设备
     public List<EquipmentEntity> getAllEquipment();
 }

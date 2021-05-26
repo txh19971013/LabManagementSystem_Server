@@ -17,6 +17,14 @@ public class EquipmentEntity implements Serializable {
      */
     private String name;
     /**
+     * 器材型号
+     */
+    private String type;
+    /**
+     * 器材数量
+     */
+    private Integer count;
+    /**
      * 采购时间
      */
     private Date buyDate;

@@ -31,17 +31,17 @@
     </insert>
     <!--下面的DUAl是一个临时表，这里实现了，避免插入重复器材-->
     <insert id="addEquipment" parameterType="com.txh.modules.entity.EquipmentEntity">
-        insert into tb_equipment (`name`)
-        select #{name}
+        insert into tb_equipment (`name`, `count`, `type`)
+        select #{name}, #{count}, #{type}
         from DUAl
         where not exists (
             select e.*
             from tb_equipment e
-            where e.`name` = #{name}
+            where e.`name` = #{name} and e.`type` = #{type}
         )
     </insert>
-    <select id="queryEquipmentNameById" resultType="String">
-        select b.`name`
+    <select id="getNameTypeCountById" resultType="com.txh.modules.form.NameTypeCount">
+        select b.`name`, b.type, b.count
         from tb_equipment_buy b
         where b.id = #{id}
     </select>
@@ -50,4 +50,13 @@
         from tb_equipment e
         order by e.id ASC
     </select>
+    <select id="getCountByNameAndType" resultType="Integer">
+        select e.count
+        from tb_equipment e
+        where e.`name` = #{name} and e.type = #{type}
+    </select>
+    <update id="updateCount" parameterType="com.txh.modules.form.UpdateEquipmentCount">
+        update tb_equipment e set count = #{count}
+        where `name` = #{name} and type = #{type}
+    </update>
 </mapper>
