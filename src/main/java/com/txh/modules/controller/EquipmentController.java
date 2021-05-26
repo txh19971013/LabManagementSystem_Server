@@ -77,8 +77,8 @@ public class EquipmentController {
     }
 
     @GetMapping("getAllEquipment")
-    @ApiOperation("管理员查看全部设备列表")
+    @ApiOperation("管理员查看全部器材列表")
     public R getAllEquipment() {
-        return R.ok("成功获取设备列表").put("AllEquipment", equipmentService.getAllEquipment());
+        return R.ok("成功获取器材列表").put("AllEquipment", equipmentService.getAllEquipment());
     }
 }
